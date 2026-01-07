@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>TecnoÚnete</title>
+
+    <!-- ===== ESTILOS ===== -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f4f8;
+            margin: 0;
+        }
+
+        header {
+            background-color: #1f2933;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        section {
+            background: white;
+            margin: 20px auto;
+            padding: 20px;
+            width: 90%;
+            max-width: 800px;
+            border-radius: 10px;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+        }
+
+        button {
+            margin-top: 15px;
+            padding: 10px;
+            background-color: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #1d4ed8;
+        }
+
+        footer {
+            text-align: center;
+            padding: 15px;
+            background-color: #e5e7eb;
+        }
+
+        pre {
+            white-space: pre-wrap;
+            background: #f9fafb;
+            padding: 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>TECNOÚNETE</h1>
+    <p>Sistema inteligente de recomendación de juegos y actividades</p>
+</header>
+
+<section>
+    <h2>Datos del grupo</h2>
+
+    <label>Nombre del grupo</label>
+    <input type="text" id="nombreGrupo">
+
+    <label>Número de personas</label>
+    <input type="number" id="personas">
+
+    <label>Rango de edad</label>
+    <select id="edad">
+        <option value="6-9">6 a 9 años</option>
+        <option value="10-13">10 a 13 años</option>
+        <option value="14-17">14 a 17 años</option>
+        <option value="18-25">18 a 25 años</option>
+        <option value="26-40">26 a 40 años</option>
+        <option value="40+">40 años o más</option>
+    </select>
+
+    <label>Interés principal</label>
+    <select id="interes">
+        <option value="tranquilo">Tranquilo</option>
+        <option value="creativo">Creativo</option>
+        <option value="fisico">Físico</option>
+        <option value="mental">Mental</option>
+        <option value="social">Social</option>
+        <option value="manual">Manualidades</option>
+    </select>
+
+    <button onclick="controlador.generarRecomendacion()">Recomendar</button>
+    <button onclick="controlador.guardarResultado()">Guardar resultado</button>
+</section>
+
+<section id="resultado"></section>
+
+<footer>
+    <p>Proyecto escolar • TecnoÚnete</p>
+</footer>
+
+<!-- ===== LÓGICA DEL PROGRAMA ===== -->
+<script>
+/*
+========================================================
+CLASE Juego
+Representa un juego con nombre y reglas
+========================================================
+*/
+class Juego {
+    constructor(nombre, reglas) {
+        this.nombre = nombre;
+        this.reglas = reglas;
+    }
+}
+
+/*
+========================================================
+CLASE Recomendador
+Analiza edad, intereses y devuelve un juego adecuado
+========================================================
+*/
+class Recomendador {
+
+    // Método principal que decide qué juego recomendar
+    recomendarJuego(edad, interes) {
+
+        // Juegos tranquilos
+        if (interes === "tranquilo") {
+            return new Juego(
+                "Círculo de Historias",
+                `1. Todos se sientan en círculo.
+2. Una persona inicia una historia.
+3. Cada jugador agrega una frase.
+4. No se permite interrumpir.
+5. Se fomenta la escucha activa.
+6. No hay ganadores ni perdedores.
+7. Ideal para relajación grupal.
+8. Promueve respeto y creatividad.`
+            );
+        }
+
+        // Juegos creativos
+        if (interes === "creativo") {
+            return new Juego(
+                "Construcción Creativa en Equipo",
+                `1. Se forman equipos pequeños.
+2. Se entregan materiales reciclables.
+3. El objetivo es crear una estructura funcional.
+4. No se permite copiar ideas.
+5. Tiempo límite: 30 minutos.
+6. Se evalúa creatividad y cooperación.
+7. Todos deben participar.
+8. Fomenta innovación.`
+            );
+        }
+
+        // Juegos físicos
+        if (interes === "fisico") {
+            return new Juego(
+                "Circuito de Retos",
+                `1. Se colocan estaciones físicas.
+2. Cada estación tiene un reto distinto.
+3. Tiempo por estación: 2 minutos.
+4. Se rota por todas.
+5. No se permite empujar.
+6. Se prioriza seguridad.
+7. Ideal para grupos grandes.
+8. Mejora coordinación.`
+            );
+        }
+
+        // Juegos mentales
+        if (interes === "mental") {
+            return new Juego(
+                "Reto de Lógica Avanzada",
+                `1. Se presentan acertijos.
+2. Se permite discusión grupal.
+3. Tiempo limitado por reto.
+4. No se usan dispositivos.
+5. Se explica la respuesta correcta.
+6. Aumenta dificultad progresiva.
+7. Fomenta pensamiento crítico.
+8. Trabajo en equipo.`
+            );
+        }
+
+        // Juegos sociales
+        if (interes === "social") {
+            return new Juego(
+                "Dinámica de Conexión",
+                `1. Cada persona responde una pregunta.
+2. No se juzgan respuestas.
+3. Se promueve empatía.
+4. El moderador controla turnos.
+5. Ideal para integración.
+6. Escucha activa obligatoria.
+7. Ambiente respetuoso.
+8. Refuerza convivencia.`
+            );
+        }
+
+        // Manualidades
+        return new Juego(
+            "Taller de Origami y Manualidades",
+            `1. Se entregan hojas y materiales.
+2. Cada persona crea una figura.
+3. No se permite usar tijeras.
+4. Se explican pasos básicos.
+5. Se intercambian creaciones.
+6. Tiempo límite: 25 minutos.
+7. Estimula motricidad fina.
+8. Actividad relajante.`
+        );
+    }
+}
+
+/*
+========================================================
+CLASE Controlador
+Conecta la interfaz con la lógica del sistema
+========================================================
+*/
+class Controlador {
+
+    constructor() {
+        this.recomendador = new Recomendador();
+    }
+
+    // Obtiene datos del formulario y muestra resultado
+    generarRecomendacion() {
+        const nombre = document.getElementById("nombreGrupo").value;
+        const edad = document.getElementById("edad").value;
+        const interes = document.getElementById("interes").value;
+
+        const juego = this.recomendador.recomendarJuego(edad, interes);
+
+        document.getElementById("resultado").innerHTML = `
+            <h2>Resultado para el grupo: ${nombre}</h2>
+            <p><strong>Juego recomendado:</strong> ${juego.nombre}</p>
+            <p><strong>Reglas:</strong></p>
+            <pre>${juego.reglas}</pre>
+        `;
+    }
+
+    // Guarda el resultado en un archivo de texto
+    guardarResultado() {
+        const contenido = document.getElementById("resultado").innerText;
+
+        if (contenido === "") {
+            alert("Primero genera una recomendación");
+            return;
+        }
+
+        const archivo = new Blob([contenido], { type: "text/plain" });
+        const enlace = document.createElement("a");
+        enlace.href = URL.createObjectURL(archivo);
+        enlace.download = "TecnoUnete_Resultado.txt";
+        enlace.click();
+    }
+}
+
+// Instancia global del controlador
+const controlador = new Controlador();
+</script>
+
+</body>
+</html>
